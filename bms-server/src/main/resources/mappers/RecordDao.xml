@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wy.dao.Dao">
+  <resultMap id="BaseResultMap" type="com.wy.entity.Record">
+    <!-- WARNING - @mbg.generated -->
+    <id column="record_id" jdbcType="INTEGER" property="recordId" />
+    <id column="book_id" jdbcType="INTEGER" property="bookId" />
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="loantime" jdbcType="TIMESTAMP" property="loantime" />
+    <result column="loan_days" jdbcType="INTEGER" property="loanDays" />
+    <result column="returntime" jdbcType="TIMESTAMP" property="returntime" />
+    <result column="is_over" jdbcType="TINYINT" property="isOver" />
+  </resultMap>
+</mapper>

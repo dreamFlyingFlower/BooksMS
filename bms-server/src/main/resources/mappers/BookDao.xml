@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wy.dao.Dao">
+  <resultMap id="BaseResultMap" type="com.wy.entity.Book">
+    <!-- WARNING - @mbg.generated -->
+    <id column="book_id" jdbcType="INTEGER" property="bookId" />
+    <id column="book_name" jdbcType="VARCHAR" property="bookName" />
+    <id column="author" jdbcType="VARCHAR" property="author" />
+    <result column="isbn" jdbcType="VARCHAR" property="isbn" />
+    <result column="publish_company" jdbcType="VARCHAR" property="publishCompany" />
+    <result column="publish_date" jdbcType="DATE" property="publishDate" />
+    <result column="storage_time" jdbcType="TIMESTAMP" property="storageTime" />
+    <result column="storage" jdbcType="INTEGER" property="storage" />
+    <result column="loan" jdbcType="INTEGER" property="loan" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="cover" jdbcType="VARCHAR" property="cover" />
+    <result column="loan_time" jdbcType="INTEGER" property="loanTime" />
+  </resultMap>
+</mapper>

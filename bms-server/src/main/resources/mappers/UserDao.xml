@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wy.dao.Dao">
+  <resultMap id="BaseResultMap" type="com.wy.entity.User">
+    <!-- WARNING - @mbg.generated -->
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <id column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="realname" jdbcType="VARCHAR" property="realname" />
+    <result column="depart_id" jdbcType="INTEGER" property="departId" />
+    <result column="idcard" jdbcType="VARCHAR" property="idcard" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="salary" jdbcType="DECIMAL" property="salary" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="user_icon" jdbcType="VARCHAR" property="userIcon" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+</mapper>

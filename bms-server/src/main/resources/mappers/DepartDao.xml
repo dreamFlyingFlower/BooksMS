@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wy.dao.Dao">
+  <resultMap id="BaseResultMap" type="com.wy.entity.Depart">
+    <!-- WARNING - @mbg.generated -->
+    <id column="depart_id" jdbcType="INTEGER" property="departId" />
+    <result column="depart_name" jdbcType="VARCHAR" property="departName" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+  </resultMap>
+</mapper>
