@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.wy.common.Constant;
 import com.wy.common.ResultException;
-import com.wy.config.UserConfig;
 import com.wy.dao.RoleDao;
 import com.wy.dao.UserDao;
 import com.wy.entity.RelatedFile;
@@ -61,7 +61,7 @@ public class UserService extends BaseService<User> {
 			throw new ResultException(TipEnum.TIP_LOGIN_USERNAME.getErrMsg());
 		}
 		User user = null;
-		String[] accountTypes = UserConfig.accountType.split(",");
+		String[] accountTypes = Constant.ACCOUNT_TYPE.split(",");
 		// 若没有配置类型,默认用户名登录
 		if (accountTypes.length == 0) {
 			user = userDao.getDao().fetch(User.class,
@@ -77,7 +77,7 @@ public class UserService extends BaseService<User> {
 		if (user == null) {
 			throw new ResultException(TipEnum.TIP_LOGIN.getErrMsg());
 		}
-		user.setUserIcon(UserConfig.fileHttp + "/" + user.getUserIcon());
+		user.setUserIcon(Constant.FILE_HTTP + "/" + user.getUserIcon());
 		// 获得角色权限
 		StringBuilder sb = new StringBuilder(
 				"select c.role_id,c.role_name,c.role_state,c.role_level ").append(
@@ -102,7 +102,7 @@ public class UserService extends BaseService<User> {
 	 * @return
 	 */
 	public User getUserByAccount(String username) {
-		String[] accountTypes = UserConfig.accountType.split(",");
+		String[] accountTypes = Constant.ACCOUNT_TYPE.split(",");
 		// 若没有配置类型,默认用户名登录
 		if (accountTypes.length == 0) {
 			return userDao.getDao().fetch(User.class, Cnd.where(Exps.eq("username", username)));

@@ -13,8 +13,8 @@ import org.nutz.lang.random.R;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.common.io.Files;
+import com.wy.common.Constant;
 import com.wy.common.ResultException;
-import com.wy.config.UserConfig;
 import com.wy.enums.DateEnum;
 
 /**
@@ -65,7 +65,7 @@ public class FilesUtils {
 	 */
 	private static File getNewPath(String fileName) {
 		String[] fileNames = Files.getNameWithoutExtension(fileName).split("_");
-		File parentFolder = new File(UserConfig.fileLocal, fileNames[1]);
+		File parentFolder = new File(Constant.FILE_LOCAL, fileNames[1]);
 		if (!parentFolder.exists()) {
 			parentFolder.mkdir();
 		}
@@ -78,7 +78,7 @@ public class FilesUtils {
 	 * @return 远程访问地址
 	 */
 	public static String getHttpPath(String fileName) {
-		return UserConfig.fileHttp + "/" + fileName;
+		return Constant.FILE_HTTP + "/" + fileName;
 	}
 
 	/**
@@ -115,7 +115,7 @@ public class FilesUtils {
 		if (fileNames.length < 2) {
 			throw new ResultException("the pattern of file name is error!");
 		}
-		return new File(new File(new File(UserConfig.fileLocal), fileNames[1]), fileName);
+		return new File(new File(new File(Constant.FILE_LOCAL), fileNames[1]), fileName);
 	}
 
 	/**

@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.wy.common.Constant;
 import com.wy.frame.LoginFrm;
 
 /**
@@ -15,16 +16,20 @@ import com.wy.frame.LoginFrm;
  */
 @SpringBootApplication
 public class Application {
-
+	
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-
-			@Override
-			public void run() {
-				SpringApplication.run(Application.class, args);
-				LoginFrm loginFrm = new LoginFrm();
-				loginFrm.setVisible(true);
-			}
-		});
+		if(Constant.USE_GUI == 1) {
+			EventQueue.invokeLater(new Runnable() {
+				
+				@Override
+				public void run() {
+					SpringApplication.run(Application.class, args);
+					LoginFrm loginFrm = new LoginFrm();
+					loginFrm.setVisible(true);
+				}
+			});
+		}else {
+			SpringApplication.run(Application.class, args);
+		}
 	}
 }

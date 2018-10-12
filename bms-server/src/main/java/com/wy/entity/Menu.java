@@ -8,7 +8,7 @@ import com.google.common.base.MoreObjects;
 import com.wy.annotation.CheckAdd;
 import com.wy.annotation.CheckUpdate;
 import com.wy.annotation.Sort;
-import com.wy.config.UserConfig;
+import com.wy.common.Constant;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,7 +43,7 @@ public class Menu extends BaseBean<Menu> {
 
 	// 菜单图标,必选,默认star.svg
 	@Column(hump = true)
-	private String menuIcon = UserConfig.defaultMenuIcon;
+	private String menuIcon = Constant.DEFAULT_MENU_ICON;
 	
 	@Column(hump=true)
 	private String menuI18n;

@@ -11,7 +11,7 @@ import org.nutz.dao.entity.annotation.Table;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.wy.annotation.CheckAdd;
 import com.wy.annotation.CheckUpdate;
-import com.wy.config.UserConfig;
+import com.wy.common.Constant;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -64,7 +64,7 @@ public class User extends BaseBean<User> {
 	@Column(hump = true)
 	private Integer state = 1;
 	@Column(hump = true)
-	private String userIcon = UserConfig.defaultUserIcon;
+	private String userIcon = Constant.DEFAULT_USER_ICON;
 	@Column(hump = true)
 	@Readonly
 	private Date createtime;
