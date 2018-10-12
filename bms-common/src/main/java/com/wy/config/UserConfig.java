@@ -22,7 +22,8 @@ public class UserConfig {
 	public static String defaultMenuIcon;// 默认用户图标
 	public static String fileLocal;// 上传文件本地存储地址
 	public static String fileHttp;//服务器访问本地文件地址;不在数据库中存储http地址,防止http变动文件访问不了
-
+	public static String useGui;// 是否启动图书管理系统的gui界面,1是,0否
+	
 	@Value("${superAdmin}")
 	public void setSuperAdmin(String superAdmin) {
 		UserConfig.superAdmin = superAdmin;
@@ -51,5 +52,10 @@ public class UserConfig {
 	@Value("${fileHttp}")
 	public void setFileHttp(String fileHttp) {
 		UserConfig.fileHttp = fileHttp;
+	}
+	
+	@Value("${useGui}")
+	public void setUseGui(String useGui) {
+		UserConfig.useGui = useGui;
 	}
 }

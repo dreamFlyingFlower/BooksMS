@@ -1,6 +1,8 @@
 package com.wy.entity;
 
 import com.google.common.base.MoreObjects;
+import com.wy.entity.BaseBean;
+
 import java.util.Date;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

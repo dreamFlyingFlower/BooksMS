@@ -1,27 +1,28 @@
 #生产环境和开发环境的不同配置写这里      
 ---
 server:
-  port: 5558
+  port: 5001
 spring:
   profiles: development
   #热启动
   devtools:
     restart:
+      enabled: false
       #排除热启动的文件
       exclude: static/**,public/**,*.md
 ---
 server:
-  port: 5557
+  port: 5001
 spring:
   profiles: production
 ---
 
 spring:
   application: 
-    name: SimpleOA
+    name: BooksMS
   #第一个参数是开发环境配置文件,其他的多个配置文件必须以application-开头,只用写后缀即可,逗号隔开
   profiles:
-    active: development,common,user,cas
+    active: development,common,user
   transaction:
     rollback-on-commit-failure: true
   mvc:
@@ -30,7 +31,7 @@ spring:
   datasource: 
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/simpleoa?autoReconnect=true&amp;useUnicode=true
+    url: jdbc:mysql://localhost:3306/bms?autoReconnect=true&amp;useUnicode=true
     username: root
     password: 52LDforever
     druid:
@@ -67,4 +68,3 @@ spring:
           log-violation: true
           #对被认为是攻击的sql抛出异常
           throw-exception: true
-          

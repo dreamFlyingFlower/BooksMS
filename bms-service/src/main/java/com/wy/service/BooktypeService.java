@@ -5,8 +5,9 @@ import org.springframework.stereotype.Service;
 
 import com.wy.dao.BooktypeDao;
 import com.wy.entity.Booktype;
+import com.wy.service.BaseService;
 
-@Service("bookService")
+@Service("booktypeService")
 public class BooktypeService extends BaseService<Booktype> {
 	@Autowired
 	private BooktypeDao booktypeDao;

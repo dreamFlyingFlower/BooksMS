@@ -1,4 +1,4 @@
-package com.wy.gui;
+package com.wy.frame;
 
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -19,9 +19,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
+import com.wy.common.SpringContext;
 import com.wy.entity.Booktype;
+import com.wy.service.BookService;
 import com.wy.service.BooktypeService;
 import com.wy.utils.StrUtils;
 
@@ -32,8 +32,8 @@ public class BookTypeAddInterFrm extends JInternalFrame {
 	private JTextField bookTypeNameTxt;
 	private JTextArea bookTypeDescTxt;
 
-	@Autowired
 	private BooktypeService booktypeService;
+	private BookService bookService;
 
 	/**
 	 * Launch the application.
@@ -55,6 +55,9 @@ public class BookTypeAddInterFrm extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public BookTypeAddInterFrm() {
+		this.bookService = (BookService) SpringContext.getBean("bookService");
+		this.booktypeService = (BooktypeService) SpringContext.getBean("booktypeService");
+		System.out.println(bookService);
 		getContentPane().setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		setFrameIcon(new ImageIcon(BookTypeAddInterFrm.class.getResource("/images/leo.jpg")));
 		setClosable(true);
@@ -145,8 +148,10 @@ public class BookTypeAddInterFrm extends JInternalFrame {
 			return;
 		}
 		Booktype bookType = Booktype.builder().booktypeName(booktypeName)
-				.booketypeDesc(booketypeDesc).build();
+				.booktypeDesc(booketypeDesc).build();
 		try {
+			System.out.println(booktypeService);
+			System.out.println(bookService);
 			if (booktypeService.hasValue("booktypeName", booktypeName)) {
 				resetValue();
 				JOptionPane.showMessageDialog(null, "图书类别已存在", "提示",

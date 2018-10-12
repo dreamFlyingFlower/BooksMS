@@ -8,6 +8,8 @@ import org.nutz.dao.sql.OrderBy;
 import org.nutz.dao.util.cri.SqlExpressionGroup;
 import org.nutz.lang.Strings;
 
+import com.wy.page.BasePage;
+
 import lombok.Getter;
 import lombok.Setter;
 

@@ -5,6 +5,7 @@ import org.nutz.dao.entity.annotation.Id;
 import org.nutz.dao.entity.annotation.Table;
 
 import com.google.common.base.MoreObjects;
+import com.wy.entity.BaseBean;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,11 +31,11 @@ public class Booktype extends BaseBean<Booktype> {
 	private String booktypeName;
 
 	@Column(hump = true)
-	private String booketypeDesc;
+	private String booktypeDesc;
 
 	@Override
 	public String toString() {
 		return MoreObjects.toStringHelper(this).omitNullValues().add("booktypeId", booktypeId)
-				.add("booktypeName", booktypeName).add("booketypeDesc", booketypeDesc).toString();
+				.add("booktypeName", booktypeName).add("booketypeDesc", booktypeDesc).toString();
 	}
 }

@@ -1,4 +1,4 @@
-package com.wy.gui;
+package com.wy.frame;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -8,8 +8,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.ResultSet;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.ButtonGroup;
@@ -33,15 +32,13 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
+import com.wy.common.SpringContext;
 import com.wy.entity.Book;
 import com.wy.entity.Booktype;
 import com.wy.service.BookService;
 import com.wy.service.BooktypeService;
+import com.wy.utils.Result;
 import com.wy.utils.StrUtils;
-
-import io.netty.util.internal.StringUtil;
 
 public class BookManageInterFrm extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
@@ -63,9 +60,7 @@ public class BookManageInterFrm extends JInternalFrame {
 	private JTextField authorTxt;
 	private JTextArea bookDescTxt;
 
-	@Autowired
 	private BooktypeService booktypeService;
-	@Autowired
 	private BookService bookService;
 
 	/**
@@ -88,6 +83,9 @@ public class BookManageInterFrm extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public BookManageInterFrm() {
+
+		this.bookService = (BookService) SpringContext.getBean("bookService");
+		this.booktypeService = (BooktypeService) SpringContext.getBean("booktypeService");
 		setFrameIcon(new ImageIcon(BookManageInterFrm.class.getResource("/images/leo.jpg")));
 		setClosable(true);
 		setIconifiable(true);
@@ -513,20 +511,21 @@ public class BookManageInterFrm extends JInternalFrame {
 	 * 初始化表格数据
 	 * @param book
 	 */
+	@SuppressWarnings("unchecked")
 	public void initBookTable(Book book) {
 		DefaultTableModel dtm = (DefaultTableModel) bookTable.getModel();
 		dtm.setRowCount(0); // 设置行数为0，即为表清空
 		try {
-			ResultSet rs = bookService.list( book);
-			while (rs.next()) {
+			Result list = bookService.getList(book);
+			List<Book> datas = (List<Book>) list.getData();
+			for (Book data : datas) {
 				Vector<String> v = new Vector<>();
-				v.add(rs.getString("id"));
-				v.add(rs.getString("bookName"));
-				v.add(rs.getString("author"));
-				v.add(rs.getString("sex"));
-				v.add(rs.getString("price"));
-				v.add(rs.getString("bookDesc"));
-				v.add(rs.getString("bookTypeName"));
+				v.add(data.getBookId().toString());
+				v.add(data.getBookName());
+				v.add(data.getAuthor());
+				v.add(data.getSex());
+				v.add(data.getPrice().toString());
+				v.add(data.getDescription());
 				dtm.addRow(v);
 			}
 		} catch (Exception e) {
@@ -538,20 +537,22 @@ public class BookManageInterFrm extends JInternalFrame {
 	 * 初始化图书类别下拉框
 	 * @param type
 	 */
+	@SuppressWarnings("unchecked")
 	public void initBookType(String type) {
 		Booktype bookType = null;
 		try {
-			ResultSet rs = bookTypeDao.list(con, new BookType());
+			List<Booktype> result = (List<Booktype>) booktypeService.getList(new Booktype())
+					.getData();
 			if ("search".equals(type)) {
-				bookType = new BookType();
-				bookType.setBookTypeName("请选择");
-				bookType.setId(-1);
+				bookType = new Booktype();
+				bookType.setBooktypeName("请选择");
+				bookType.setBooktypeId(-1);
 				s_bookTypeJcb.addItem(bookType);
 			}
-			while (rs.next()) {
+			for (Booktype booktype : result) {
 				bookType = new Booktype();
-				bookType.setId(rs.getInt("id"));
-				bookType.setBookTypeName(rs.getString("bookTypeName"));
+				bookType.setBooktypeId(booktype.getBooktypeId());
+				bookType.setBooktypeName(booktype.getBooktypeName());
 				if ("search".equals(type)) {
 					s_bookTypeJcb.addItem(bookType);
 				} else if ("modify".equals(type)) {
@@ -560,12 +561,6 @@ public class BookManageInterFrm extends JInternalFrame {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				DbUtil.closeCon(con);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
 	}
 

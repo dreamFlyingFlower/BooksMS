@@ -1,4 +1,4 @@
-package com.wy.gui;
+package com.wy.frame;
 
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -6,8 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Connection;
-import java.sql.ResultSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.GroupLayout;
@@ -28,9 +28,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
+import com.wy.common.SpringContext;
 import com.wy.entity.Booktype;
+import com.wy.page.BooktypePage;
 import com.wy.service.BookService;
 import com.wy.service.BooktypeService;
 import com.wy.utils.StrUtils;
@@ -45,9 +45,7 @@ public class BookTypeManageInterFrm extends JInternalFrame {
 	private JTextField bookTypeNameTxt;
 	private JTextArea bookTypeDescTxt;
 
-	@Autowired
 	private BooktypeService booktypeService;
-	@Autowired
 	private BookService bookService;
 
 	/**
@@ -70,6 +68,8 @@ public class BookTypeManageInterFrm extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public BookTypeManageInterFrm() {
+		this.bookService = (BookService) SpringContext.getBean("bookService");
+		this.booktypeService = (BooktypeService) SpringContext.getBean("booktypeService");
 		setFrameIcon(new ImageIcon(BookTypeManageInterFrm.class.getResource("/images/leo.jpg")));
 		setClosable(true);
 		setIconifiable(true);
@@ -228,7 +228,7 @@ public class BookTypeManageInterFrm extends JInternalFrame {
 		scrollPane.setViewportView(bookTypeTable);
 		getContentPane().setLayout(groupLayout);
 
-		this.initTable(new Booktype());
+		this.initTable(new BooktypePage());
 
 	}
 
@@ -247,7 +247,7 @@ public class BookTypeManageInterFrm extends JInternalFrame {
 				JOptionPane.OK_CANCEL_OPTION);
 		if (choose == 0) {
 			try {
-				if (bookService.existBookByBookTypeId(con, booktypeId)) {
+				if (bookService.hasValue("booktypeId", booktypeId)) {
 					JOptionPane.showMessageDialog(null, "当前分类下有图书，无法删除此类别！", "提示",
 							JOptionPane.INFORMATION_MESSAGE);
 					return;
@@ -255,7 +255,7 @@ public class BookTypeManageInterFrm extends JInternalFrame {
 				int result = booktypeService.delete(Integer.parseInt(booktypeId));
 				if (result == 1) {
 					this.resetValue();
-					this.initTable(new Booktype());
+					this.initTable(new BooktypePage());
 					JOptionPane.showMessageDialog(null, "删除成功", "提示",
 							JOptionPane.INFORMATION_MESSAGE);
 					return;
@@ -287,8 +287,7 @@ public class BookTypeManageInterFrm extends JInternalFrame {
 		}
 
 		Booktype booktype = Booktype.builder().booktypeId(Integer.parseInt(booktypeId))
-				.booktypeName(booktypeName).booketypeDesc(booktypeDesc).build();
-		Connection con = null;
+				.booktypeName(booktypeName).booktypeDesc(booktypeDesc).build();
 		try {
 			if (StrUtils.isBlank(booktypeName)) {
 				JOptionPane.showMessageDialog(null, "图书类别名不可为空！", "警告",
@@ -298,7 +297,7 @@ public class BookTypeManageInterFrm extends JInternalFrame {
 			int result = booktypeService.update(booktype);
 			if (result == 1) {
 				this.resetValue();
-				this.initTable(new Booktype());
+				this.initTable(new BooktypePage());
 				JOptionPane.showMessageDialog(null, "修改成功", "提示", JOptionPane.INFORMATION_MESSAGE);
 				return;
 			} else {
@@ -330,7 +329,7 @@ public class BookTypeManageInterFrm extends JInternalFrame {
 	 */
 	private void bookTypeSearchActionPerformed(ActionEvent evt) {
 		String s_bookTypeName = this.s_bookTypeNameTxt.getText();
-		Booktype bookType = new Booktype();
+		BooktypePage bookType = new BooktypePage();
 		bookType.setBooktypeName(s_bookTypeName);
 		this.initTable(bookType);
 	}
@@ -339,16 +338,18 @@ public class BookTypeManageInterFrm extends JInternalFrame {
 	 * 初始化图书类别表格
 	 * @param bookType
 	 */
-	private void initTable(Booktype booktype) {
+	@SuppressWarnings("unchecked")
+	private void initTable(BooktypePage booktypePage) {
 		DefaultTableModel dtm = (DefaultTableModel) bookTypeTable.getModel();
 		dtm.setRowCount(0); // 设置行数为0，即为表清空
 		try {
-			ResultSet rs = booktypeService.getList(bean).list(con, bookType);
-			while (rs.next()) {
+			List<Map<String, Object>> datas = (List<Map<String, Object>>) booktypeService
+					.getPages(booktypePage).getData();
+			for (Map<String, Object> data : datas) {
 				Vector<String> v = new Vector<>();
-				v.add(rs.getString("id"));
-				v.add(rs.getString("bookTypeName"));
-				v.add(rs.getString("bookTypeDesc"));
+				v.add(data.get("booktype_id").toString());
+				v.add(data.get("booktype_name").toString());
+				v.add(data.get("booktype_desc").toString());
 				dtm.addRow(v);
 			}
 		} catch (Exception e) {

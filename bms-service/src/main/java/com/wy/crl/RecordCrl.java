@@ -1,7 +1,9 @@
 package com.wy.crl;
 
+import com.wy.crl.BaseCrl;
 import com.wy.entity.Record;
 import com.wy.service.RecordService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

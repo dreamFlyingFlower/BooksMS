@@ -13,4 +13,11 @@
 
 	<name>bms-gui</name>
 	<description>Demo project for Spring Boot</description>
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.wy.booksms</groupId>
+			<artifactId>bms-common</artifactId>
+		</dependency>
+	</dependencies>
 </project>

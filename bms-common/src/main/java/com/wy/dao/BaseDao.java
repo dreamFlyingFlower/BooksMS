@@ -382,9 +382,7 @@ public abstract class BaseDao<T> {
 					continue;
 				}
 				cri.where().andEquals(field.getName(), value);
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
+			} catch (IllegalArgumentException | IllegalAccessException e) {
 				e.printStackTrace();
 			}
 		}

@@ -19,7 +19,6 @@
 		<dependency>
 			<groupId>com.wy.booksms</groupId>
 			<artifactId>bms-common</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>net.lizhaoweb.common.third</groupId>

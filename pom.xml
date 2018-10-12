@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.0.3.RELEASE</version>
-		<relativePath/>
+		<relativePath />
 	</parent>
 
 	<groupId>com.wy.booksms</groupId>
@@ -23,14 +24,46 @@
 		<fastjson.version>1.2.47</fastjson.version>
 	</properties>
 
+	<modules>
+		<module>bms-common</module>
+		<module>bms-server</module>
+		<module>bms-service</module>
+		<module>bms-gui</module>
+	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.wy.booksms</groupId>
+				<artifactId>bms-common</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.wy.booksms</groupId>
+				<artifactId>bms-server</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.wy.booksms</groupId>
+				<artifactId>bms-service</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.wy.booksms</groupId>
+				<artifactId>bms-gui</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
-		<!-- ??????��bean????,????��setter??getter -->
+		<!-- 注解自动生成getter和setter -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<!-- mybatis?????????,dao,service,controller -->
+		<!-- mybatis插件生成entity,dao,service,crl -->
 		<dependency>
 			<groupId>com.github.drtrang</groupId>
 			<artifactId>mybatis-generator-extension</artifactId>
@@ -39,19 +72,4 @@
 		</dependency>
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
-
-	<modules>
-		<module>bms-common</module>
-		<module>bms-server</module>
-    <module>bms-service</module>
-    <module>bms-gui</module>
-  </modules>
 </project>

@@ -1,4 +1,4 @@
-package com.wy.gui;
+package com.wy.frame;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -26,8 +26,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
+import com.wy.common.SpringContext;
 import com.wy.entity.Book;
 import com.wy.entity.Booktype;
 import com.wy.page.BooktypePage;
@@ -49,11 +48,9 @@ public class BookAddInterFrm extends JInternalFrame {
 	private JComboBox<Booktype> bookTypeJcb;
 	private JTextArea bookDescTxt;
 
-	@Autowired
 	private BooktypeService booktypeService;
-	@Autowired
 	private BookService bookService;
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -69,11 +66,14 @@ public class BookAddInterFrm extends JInternalFrame {
 			}
 		});
 	}
-
+	
 	/**
 	 * Create the frame.
 	 */
 	public BookAddInterFrm() {
+		this.bookService = (BookService) SpringContext.getBean("bookService");
+		this.booktypeService = (BooktypeService) SpringContext.getBean("booktypeService");
+		
 		setFrameIcon(new ImageIcon(BookAddInterFrm.class.getResource("/images/leo.jpg")));
 		setClosable(true);
 		setIconifiable(true);
@@ -322,7 +322,7 @@ public class BookAddInterFrm extends JInternalFrame {
 				this.bookTypeJcb
 						.addItem(Booktype.builder().booktypeId((Integer) data.get("booktype_id"))
 								.booktypeName((String) data.get("booktype_name"))
-								.booketypeDesc(String.valueOf(data.get("booktype_desc"))).build());
+								.booktypeDesc(String.valueOf(data.get("booktype_desc"))).build());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
