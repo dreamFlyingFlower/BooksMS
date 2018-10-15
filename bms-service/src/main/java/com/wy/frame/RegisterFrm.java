@@ -90,8 +90,6 @@ public class RegisterFrm extends JFrame {
 		passwordTxt.setFont(new Font("微软雅黑", Font.PLAIN, 9));
 		passwordTxt.setColumns(16);
 		
-		ResetButton reset = new ResetButton(this);
-
 		JButton registerBtn = new JButton("注册");
 		registerBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -117,6 +115,7 @@ public class RegisterFrm extends JFrame {
 		checkpasswordTxt = new JPasswordField();
 		checkpasswordTxt.setToolTipText("请再次输入密码");
 		checkpasswordTxt.setFont(new Font("微软雅黑", Font.PLAIN, 9));
+		ResetButton reset = new ResetButton(this);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup().addGap(81)

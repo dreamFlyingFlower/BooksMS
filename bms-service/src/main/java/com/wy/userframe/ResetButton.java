@@ -35,7 +35,7 @@ public class ResetButton extends JButton {
 	}
 
 	public ResetButton(JFrame jf, String text, boolean showToolTip, String toolTip) {
-		this(jf, text, true, text, "/images/reset.png");
+		this(jf, text, true, text, "images/reset.png");
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class ResetButton extends JButton {
 		if (showToolTip) {
 			setToolTipText(toolTip);
 		}
-		setIcon(new ImageIcon(getClass().getResource(iconPath)));
+		setIcon(new ImageIcon(getClass().getClassLoader().getResource(iconPath)));
 		addActionListener(addActionListener());
 	}
 
