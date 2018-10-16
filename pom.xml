@@ -28,7 +28,6 @@
 		<module>bms-common</module>
 		<module>bms-server</module>
 		<module>bms-service</module>
-		<module>bms-gui</module>
 	</modules>
 
 	<dependencyManagement>
