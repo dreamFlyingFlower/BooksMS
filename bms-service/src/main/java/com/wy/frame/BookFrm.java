@@ -40,7 +40,7 @@ import com.wy.service.BooktypeService;
 import com.wy.utils.Result;
 import com.wy.utils.StrUtils;
 
-public class BookManageInterFrm extends JInternalFrame {
+public class BookFrm extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
 
 	private String lookAndFeel_win = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
@@ -70,7 +70,7 @@ public class BookManageInterFrm extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BookManageInterFrm frame = new BookManageInterFrm();
+					BookFrm frame = new BookFrm();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -82,11 +82,11 @@ public class BookManageInterFrm extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public BookManageInterFrm() {
+	public BookFrm() {
 
 		this.bookService = (BookService) SpringContext.getBean("bookService");
 		this.booktypeService = (BooktypeService) SpringContext.getBean("booktypeService");
-		setFrameIcon(new ImageIcon(BookManageInterFrm.class.getResource("/images/leo.jpg")));
+		setFrameIcon(new ImageIcon(BookFrm.class.getResource("/images/leo.jpg")));
 		setClosable(true);
 		setIconifiable(true);
 		setTitle("图书管理");
@@ -182,7 +182,7 @@ public class BookManageInterFrm extends JInternalFrame {
 				bookUpdateActionPerformed(e);
 			}
 		});
-		button_1.setIcon(new ImageIcon(BookManageInterFrm.class.getResource("/images/modify.png")));
+		button_1.setIcon(new ImageIcon(BookFrm.class.getResource("/images/modify.png")));
 
 		JButton button_2 = new JButton("删除");
 		button_2.addActionListener(new ActionListener() {
@@ -190,7 +190,7 @@ public class BookManageInterFrm extends JInternalFrame {
 				bookDeleteActionPerformed(e);
 			}
 		});
-		button_2.setIcon(new ImageIcon(BookManageInterFrm.class.getResource("/images/delete.png")));
+		button_2.setIcon(new ImageIcon(BookFrm.class.getResource("/images/delete.png")));
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup().addContainerGap().addGroup(gl_panel_1
@@ -322,7 +322,7 @@ public class BookManageInterFrm extends JInternalFrame {
 				bookSearchActionPerformed(e);
 			}
 		});
-		button.setIcon(new ImageIcon(BookManageInterFrm.class.getResource("/images/search.png")));
+		button.setIcon(new ImageIcon(BookFrm.class.getResource("/images/search.png")));
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup().addContainerGap().addComponent(label)

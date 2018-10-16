@@ -1,6 +1,5 @@
 package com.wy.frame;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
@@ -32,9 +31,10 @@ import com.wy.entity.Booktype;
 import com.wy.page.BooktypePage;
 import com.wy.service.BookService;
 import com.wy.service.BooktypeService;
+import com.wy.userframe.ResetButton;
 import com.wy.utils.StrUtils;
 
-public class BookAddInterFrm extends JInternalFrame {
+public class BookAddFrm extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
 
 	private String lookAndFeel_win = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
@@ -50,31 +50,15 @@ public class BookAddInterFrm extends JInternalFrame {
 
 	private BooktypeService booktypeService;
 	private BookService bookService;
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					BookAddInterFrm frame = new BookAddInterFrm();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
+
 	/**
 	 * Create the frame.
 	 */
-	public BookAddInterFrm() {
+	public BookAddFrm() {
 		this.bookService = (BookService) SpringContext.getBean("bookService");
 		this.booktypeService = (BooktypeService) SpringContext.getBean("booktypeService");
-		
-		setFrameIcon(new ImageIcon(BookAddInterFrm.class.getResource("/images/leo.jpg")));
+
+		setFrameIcon(new ImageIcon(BookAddFrm.class.getResource("/images/leo.jpg")));
 		setClosable(true);
 		setIconifiable(true);
 		setTitle("图书添加");
@@ -126,15 +110,13 @@ public class BookAddInterFrm extends JInternalFrame {
 				bookAddActiionPerformed(e);
 			}
 		});
-		button.setIcon(new ImageIcon(BookAddInterFrm.class.getResource("/images/add.png")));
+		button.setIcon(new ImageIcon(BookAddFrm.class.getResource("/images/add.png")));
 
-		JButton button_1 = new JButton("重置");
-		button_1.addActionListener(new ActionListener() {
+		ResetButton button_1 = new ResetButton(this, "images/reset.png", new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				resetValueActionPerformed(e);
+				resetValue();
 			}
 		});
-		button_1.setIcon(new ImageIcon(BookAddInterFrm.class.getResource("/images/reset.png")));
 
 		JLabel label_5 = new JLabel("图书类别：");
 
@@ -327,14 +309,6 @@ public class BookAddInterFrm extends JInternalFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	/**
-	 * 重置事件处理
-	 * @param evt
-	 */
-	private void resetValueActionPerformed(ActionEvent evt) {
-		this.resetValue();
 	}
 
 	/**

@@ -25,7 +25,7 @@ import com.wy.service.BookService;
 import com.wy.service.BooktypeService;
 import com.wy.utils.StrUtils;
 
-public class BookTypeAddInterFrm extends JInternalFrame {
+public class BooktypeAddFrm extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
 
 	private String lookAndFeel_win = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
@@ -42,7 +42,7 @@ public class BookTypeAddInterFrm extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BookTypeAddInterFrm frame = new BookTypeAddInterFrm();
+					BooktypeAddFrm frame = new BooktypeAddFrm();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,12 +54,12 @@ public class BookTypeAddInterFrm extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public BookTypeAddInterFrm() {
+	public BooktypeAddFrm() {
 		this.bookService = (BookService) SpringContext.getBean("bookService");
 		this.booktypeService = (BooktypeService) SpringContext.getBean("booktypeService");
 		System.out.println(bookService);
 		getContentPane().setFont(new Font("微软雅黑", Font.PLAIN, 12));
-		setFrameIcon(new ImageIcon(BookTypeAddInterFrm.class.getResource("/images/leo.jpg")));
+		setFrameIcon(new ImageIcon(BooktypeAddFrm.class.getResource("/images/leo.jpg")));
 		setClosable(true);
 		setIconifiable(true);
 		setTitle("图书类别添加");
@@ -87,7 +87,7 @@ public class BookTypeAddInterFrm extends JInternalFrame {
 				bookTypeAddActionPerformed(e);
 			}
 		});
-		addBtn.setIcon(new ImageIcon(BookTypeAddInterFrm.class.getResource("/images/add.png")));
+		addBtn.setIcon(new ImageIcon(BooktypeAddFrm.class.getResource("/images/add.png")));
 
 		JButton resetBtn = new JButton("重置");
 		resetBtn.addActionListener(new ActionListener() {
@@ -95,7 +95,7 @@ public class BookTypeAddInterFrm extends JInternalFrame {
 				resetValueActionPerformed(e);
 			}
 		});
-		resetBtn.setIcon(new ImageIcon(BookTypeAddInterFrm.class.getResource("/images/reset.png")));
+		resetBtn.setIcon(new ImageIcon(BooktypeAddFrm.class.getResource("/images/reset.png")));
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup().addGap(84)

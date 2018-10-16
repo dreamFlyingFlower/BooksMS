@@ -35,7 +35,7 @@ import com.wy.service.BookService;
 import com.wy.service.BooktypeService;
 import com.wy.utils.StrUtils;
 
-public class BookTypeManageInterFrm extends JInternalFrame {
+public class BooktypeFrm extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
 
 	private String lookAndFeel_win = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
@@ -55,7 +55,7 @@ public class BookTypeManageInterFrm extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BookTypeManageInterFrm frame = new BookTypeManageInterFrm();
+					BooktypeFrm frame = new BooktypeFrm();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -67,10 +67,10 @@ public class BookTypeManageInterFrm extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public BookTypeManageInterFrm() {
+	public BooktypeFrm() {
 		this.bookService = (BookService) SpringContext.getBean("bookService");
 		this.booktypeService = (BooktypeService) SpringContext.getBean("booktypeService");
-		setFrameIcon(new ImageIcon(BookTypeManageInterFrm.class.getResource("/images/leo.jpg")));
+		setFrameIcon(new ImageIcon(BooktypeFrm.class.getResource("/images/leo.jpg")));
 		setClosable(true);
 		setIconifiable(true);
 		setTitle("图书类别管理");
@@ -97,7 +97,7 @@ public class BookTypeManageInterFrm extends JInternalFrame {
 		});
 		searchBtn.setFont(new Font("微软雅黑", Font.PLAIN, 13));
 		searchBtn.setIcon(
-				new ImageIcon(BookTypeManageInterFrm.class.getResource("/images/search.png")));
+				new ImageIcon(BooktypeFrm.class.getResource("/images/search.png")));
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "\u8868\u5355\u64CD\u4F5C", TitledBorder.LEADING,
@@ -155,7 +155,7 @@ public class BookTypeManageInterFrm extends JInternalFrame {
 			}
 		});
 		changeBtn.setIcon(
-				new ImageIcon(BookTypeManageInterFrm.class.getResource("/images/modify.png")));
+				new ImageIcon(BooktypeFrm.class.getResource("/images/modify.png")));
 
 		JButton deleteBtn = new JButton("删除");
 		deleteBtn.addActionListener(new ActionListener() {
@@ -164,7 +164,7 @@ public class BookTypeManageInterFrm extends JInternalFrame {
 			}
 		});
 		deleteBtn.setIcon(
-				new ImageIcon(BookTypeManageInterFrm.class.getResource("/images/delete.png")));
+				new ImageIcon(BooktypeFrm.class.getResource("/images/delete.png")));
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup().addContainerGap().addGroup(gl_panel

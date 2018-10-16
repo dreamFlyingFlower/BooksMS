@@ -170,7 +170,7 @@ public class LoginFrm extends JFrame {
 			User user = userService.login(username, password);
 			if (user != null) {
 				this.dispose(); // 销毁窗体
-				new MainFrm().setVisible(true); // 创建主窗体并设置为可见
+				new HomeFrm().setVisible(true); // 创建主窗体并设置为可见
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
-public class MainFrm extends JFrame {
+public class HomeFrm extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	private String lookAndFeel_win = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
@@ -29,7 +29,7 @@ public class MainFrm extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainFrm frame = new MainFrm();
+					HomeFrm frame = new HomeFrm();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,8 +41,8 @@ public class MainFrm extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MainFrm() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrm.class.getResource("/images/frmicon.png")));
+	public HomeFrm() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(HomeFrm.class.getResource("/images/frmicon.png")));
 		setTitle("图书管理系统");
 		try {
 			UIManager.setLookAndFeel(lookAndFeel_win);
@@ -56,59 +56,59 @@ public class MainFrm extends JFrame {
 		setJMenuBar(menuBar);
 		
 		JMenu menu = new JMenu("基本数据维护");
-		menu.setIcon(new ImageIcon(MainFrm.class.getResource("/images/base.png")));
+		menu.setIcon(new ImageIcon(HomeFrm.class.getResource("/images/base.png")));
 		menuBar.add(menu);
 		
 		JMenu menu_2 = new JMenu("图书类别管理");
-		menu_2.setIcon(new ImageIcon(MainFrm.class.getResource("/images/bookTypeManager.png")));
+		menu_2.setIcon(new ImageIcon(HomeFrm.class.getResource("/images/bookTypeManager.png")));
 		menu.add(menu_2);
 		
 		JMenuItem menuItem = new JMenuItem("图书类别添加");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BookTypeAddInterFrm bookTypeAddInterFrm = new BookTypeAddInterFrm();
+				BooktypeAddFrm bookTypeAddInterFrm = new BooktypeAddFrm();
 				bookTypeAddInterFrm.setVisible(true);
 				desktop.add(bookTypeAddInterFrm);
 			}
 		});
-		menuItem.setIcon(new ImageIcon(MainFrm.class.getResource("/images/add.png")));
+		menuItem.setIcon(new ImageIcon(HomeFrm.class.getResource("/images/add.png")));
 		menu_2.add(menuItem);
 		
 		JMenuItem menuItem_1 = new JMenuItem("图书类别维护");
 		menuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BookTypeManageInterFrm bookTypeManageInterFrm = new BookTypeManageInterFrm();
+				BooktypeFrm bookTypeManageInterFrm = new BooktypeFrm();
 				bookTypeManageInterFrm.setVisible(true);
 				desktop.add(bookTypeManageInterFrm);
 			}
 		});
-		menuItem_1.setIcon(new ImageIcon(MainFrm.class.getResource("/images/edit.png")));
+		menuItem_1.setIcon(new ImageIcon(HomeFrm.class.getResource("/images/edit.png")));
 		menu_2.add(menuItem_1);
 		
 		JMenu menu_3 = new JMenu("图书管理");
-		menu_3.setIcon(new ImageIcon(MainFrm.class.getResource("/images/bookManager.png")));
+		menu_3.setIcon(new ImageIcon(HomeFrm.class.getResource("/images/bookManager.png")));
 		menu.add(menu_3);
 		
 		JMenuItem menuItem_2 = new JMenuItem("图书添加");
 		menuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BookAddInterFrm bookAddInterFrm = new BookAddInterFrm();
+				BookAddFrm bookAddInterFrm = new BookAddFrm();
 				bookAddInterFrm.setVisible(true);
 				desktop.add(bookAddInterFrm);
 			}
 		});
-		menuItem_2.setIcon(new ImageIcon(MainFrm.class.getResource("/images/add.png")));
+		menuItem_2.setIcon(new ImageIcon(HomeFrm.class.getResource("/images/add.png")));
 		menu_3.add(menuItem_2);
 		
 		JMenuItem menuItem_4 = new JMenuItem("图书维护");
 		menuItem_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BookManageInterFrm bookManageInterFrm = new BookManageInterFrm();
+				BookFrm bookManageInterFrm = new BookFrm();
 				bookManageInterFrm.setVisible(true);
 				desktop.add(bookManageInterFrm);
 			}
 		});
-		menuItem_4.setIcon(new ImageIcon(MainFrm.class.getResource("/images/edit.png")));
+		menuItem_4.setIcon(new ImageIcon(HomeFrm.class.getResource("/images/edit.png")));
 		menu_3.add(menuItem_4);
 		
 		JMenuItem menuItem_3 = new JMenuItem(" 安全退出");
@@ -121,11 +121,11 @@ public class MainFrm extends JFrame {
 				}
 			}
 		});
-		menuItem_3.setIcon(new ImageIcon(MainFrm.class.getResource("/images/exit.png")));
+		menuItem_3.setIcon(new ImageIcon(HomeFrm.class.getResource("/images/exit.png")));
 		menu.add(menuItem_3);
 		
 		JMenu menu_1 = new JMenu("关于我");
-		menu_1.setIcon(new ImageIcon(MainFrm.class.getResource("/images/about.png")));
+		menu_1.setIcon(new ImageIcon(HomeFrm.class.getResource("/images/about.png")));
 		menuBar.add(menu_1);
 		
 		JMenuItem mntmjustzero = new JMenuItem("关于我");
@@ -136,7 +136,7 @@ public class MainFrm extends JFrame {
 				desktop.add(aboutFrm);
 			}
 		});
-		mntmjustzero.setIcon(new ImageIcon(MainFrm.class.getResource("/images/aboutMe.jpg")));
+		mntmjustzero.setIcon(new ImageIcon(HomeFrm.class.getResource("/images/aboutMe.jpg")));
 		menu_1.add(mntmjustzero);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
