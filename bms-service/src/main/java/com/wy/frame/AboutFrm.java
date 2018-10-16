@@ -10,7 +10,11 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
 
-public class JustZEROInterFrm extends JInternalFrame {
+/**
+ * 关于
+ * @author paradiseWy
+ */
+public class AboutFrm extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
 
 	private String lookAndFeel_win = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
@@ -22,7 +26,7 @@ public class JustZEROInterFrm extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JustZEROInterFrm frame = new JustZEROInterFrm();
+					AboutFrm frame = new AboutFrm();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -34,12 +38,12 @@ public class JustZEROInterFrm extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public JustZEROInterFrm() {
+	public AboutFrm() {
 		getContentPane().setBackground(new Color(245, 222, 179));
-		setFrameIcon(new ImageIcon(JustZEROInterFrm.class.getResource("/images/justZERO.jpg")));
+		setFrameIcon(new ImageIcon(AboutFrm.class.getResource("/images/aboutMe.jpg")));
 		setClosable(true);
 		setIconifiable(true);
-		setTitle("关于justZERO");
+		setTitle("关于我");
 		try {
 			UIManager.setLookAndFeel(lookAndFeel_win);
 		} catch (Exception e) {
@@ -48,7 +52,7 @@ public class JustZEROInterFrm extends JInternalFrame {
 		setBounds(100, 100, 221, 377);
 
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(JustZEROInterFrm.class.getResource("/images/jz.png")));
+		label.setIcon(new ImageIcon(AboutFrm.class.getResource("/images/jz.png")));
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup().addContainerGap().addComponent(label)

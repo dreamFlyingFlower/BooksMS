@@ -8,10 +8,6 @@ import javax.swing.JLabel;
 
 public class CLabel extends JLabel {
 
-	// JLabel l_pwd = new JLabel("密 码：");
-	// l_pwd.setFont(new Font("微软雅黑", Font.PLAIN, 12));
-	// l_pwd.setIcon(new
-	// ImageIcon(LoginFrm.class.getResource("/images/password.png")));
 	private static final long serialVersionUID = 1L;
 
 	/**

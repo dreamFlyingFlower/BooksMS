@@ -36,6 +36,10 @@ public class LoginFrm extends JFrame {
 
 	private UserService userService;
 
+	/**
+	 * 仅为测试用
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 
@@ -43,7 +47,6 @@ public class LoginFrm extends JFrame {
 			public void run() {
 				LoginFrm loginFrm = new LoginFrm();
 				loginFrm.setVisible(true);
-
 			}
 		});
 	}

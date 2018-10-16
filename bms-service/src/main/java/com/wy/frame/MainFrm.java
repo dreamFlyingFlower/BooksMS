@@ -124,19 +124,19 @@ public class MainFrm extends JFrame {
 		menuItem_3.setIcon(new ImageIcon(MainFrm.class.getResource("/images/exit.png")));
 		menu.add(menuItem_3);
 		
-		JMenu menu_1 = new JMenu("关于我们");
+		JMenu menu_1 = new JMenu("关于我");
 		menu_1.setIcon(new ImageIcon(MainFrm.class.getResource("/images/about.png")));
 		menuBar.add(menu_1);
 		
-		JMenuItem mntmjustzero = new JMenuItem("关于justZERO");
+		JMenuItem mntmjustzero = new JMenuItem("关于我");
 		mntmjustzero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JustZEROInterFrm justZEROInterFrm = new JustZEROInterFrm();
-				justZEROInterFrm.setVisible(true);
-				desktop.add(justZEROInterFrm);
+				AboutFrm aboutFrm = new AboutFrm();
+				aboutFrm.setVisible(true);
+				desktop.add(aboutFrm);
 			}
 		});
-		mntmjustzero.setIcon(new ImageIcon(MainFrm.class.getResource("/images/justZERO.jpg")));
+		mntmjustzero.setIcon(new ImageIcon(MainFrm.class.getResource("/images/aboutMe.jpg")));
 		menu_1.add(mntmjustzero);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

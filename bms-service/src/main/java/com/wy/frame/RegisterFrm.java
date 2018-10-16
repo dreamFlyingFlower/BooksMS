@@ -9,11 +9,7 @@ import java.util.Objects;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -23,7 +19,11 @@ import javax.swing.border.EmptyBorder;
 
 import com.wy.common.SpringContext;
 import com.wy.entity.User;
+import com.wy.enums.SwingTips;
 import com.wy.service.UserService;
+import com.wy.userframe.CButton;
+import com.wy.userframe.CLabel;
+import com.wy.userframe.CTextField;
 import com.wy.userframe.ResetButton;
 import com.wy.utils.StrUtils;
 
@@ -37,10 +37,10 @@ public class RegisterFrm extends JFrame {
 	private JPasswordField checkpasswordTxt;
 
 	private UserService userService;
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				RegisterFrm registerFrm = new RegisterFrm();
@@ -68,49 +68,34 @@ public class RegisterFrm extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
-		JLabel lblNewLabel = new JLabel("图书管理系统");
-		lblNewLabel.setFont(new Font("微软雅黑", Font.BOLD, 23));
-		lblNewLabel.setIcon(new ImageIcon(getClass().getResource("/images/logo.png")));
+		CLabel l_title = new CLabel(getClass().getClassLoader().getResource("images/logo.png"),
+				"图书管理系统", Font.BOLD, 23);
+		CLabel l_username = new CLabel(
+				getClass().getClassLoader().getResource("images/userName.png"), "新用户名：");
+		CLabel l_pwd = new CLabel(getClass().getClassLoader().getResource("images/password.png"),
+				"密 码：");
 
-		JLabel lblNewLabel_1 = new JLabel("新用户名：");
-		lblNewLabel_1.setFont(new Font("微软雅黑", Font.PLAIN, 12));
-		lblNewLabel_1.setIcon(new ImageIcon(getClass().getResource("/images/userName.png")));
-
-		JLabel lblNewLabel_2 = new JLabel("密 码：");
-		lblNewLabel_2.setFont(new Font("微软雅黑", Font.PLAIN, 12));
-		lblNewLabel_2.setIcon(new ImageIcon(getClass().getResource("/images/password.png")));
-
-		usernameTxt = new JTextField();
-		usernameTxt.setToolTipText("请输入用户名");
-		usernameTxt.setFont(new Font("微软雅黑", Font.PLAIN, 12));
-		usernameTxt.setColumns(10);
+		usernameTxt = new CTextField("请输入用户名");
 
 		passwordTxt = new JPasswordField();
 		passwordTxt.setToolTipText("请输入密码");
 		passwordTxt.setFont(new Font("微软雅黑", Font.PLAIN, 9));
 		passwordTxt.setColumns(16);
-		
-		JButton registerBtn = new JButton("注册");
-		registerBtn.addActionListener(new ActionListener() {
+
+		CButton registerBtn = new CButton("注册", "images/leo.jpg", new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				registerActionPerformed(e);
 			}
 		});
-		registerBtn.setIcon(new ImageIcon(LoginFrm.class.getResource("/images/leo.jpg")));
-		registerBtn.setToolTipText("注册");
 
-		JButton loginBtn = new JButton("登录");
-		loginBtn.addActionListener(new ActionListener() {
+		CButton loginBtn = new CButton("登录", "images/login.png", new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				toLoginActionPerformed(e);
 			}
 		});
-		loginBtn.setToolTipText("登录");
-		loginBtn.setIcon(new ImageIcon(RegisterFrm.class.getResource("/images/login.png")));
 
-		JLabel label = new JLabel("确认密码：");
-		label.setIcon(new ImageIcon(RegisterFrm.class.getResource("/images/password.png")));
-		label.setFont(new Font("微软雅黑", Font.PLAIN, 12));
+		CLabel label = new CLabel(getClass().getClassLoader().getResource("images/password.png"),
+				"确认密码：");
 
 		checkpasswordTxt = new JPasswordField();
 		checkpasswordTxt.setToolTipText("请再次输入密码");
@@ -118,8 +103,8 @@ public class RegisterFrm extends JFrame {
 		ResetButton reset = new ResetButton(this);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup().addGap(81)
-						.addComponent(lblNewLabel).addContainerGap(105, Short.MAX_VALUE))
+				.addGroup(gl_contentPane.createSequentialGroup().addGap(81).addComponent(l_title)
+						.addContainerGap(105, Short.MAX_VALUE))
 				.addGroup(gl_contentPane.createSequentialGroup().addGap(66)
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
@@ -130,8 +115,8 @@ public class RegisterFrm extends JFrame {
 								.addGroup(gl_contentPane.createSequentialGroup()
 										.addGroup(gl_contentPane
 												.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblNewLabel_1).addComponent(label)
-												.addComponent(lblNewLabel_2))
+												.addComponent(l_username).addComponent(label)
+												.addComponent(l_pwd))
 										.addPreferredGap(ComponentPlacement.RELATED)
 										.addGroup(gl_contentPane
 												.createParallelGroup(Alignment.LEADING)
@@ -145,15 +130,15 @@ public class RegisterFrm extends JFrame {
 						.addGap(57)));
 		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup().addContainerGap()
-						.addComponent(lblNewLabel).addGap(18)
+						.addComponent(l_title).addGap(18)
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblNewLabel_1).addComponent(usernameTxt,
+								.addComponent(l_username).addComponent(usernameTxt,
 										GroupLayout.PREFERRED_SIZE, 19, Short.MAX_VALUE))
 						.addGap(18)
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(passwordTxt, GroupLayout.PREFERRED_SIZE,
 										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblNewLabel_2))
+								.addComponent(l_pwd))
 						.addGap(18)
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(label)
@@ -187,16 +172,15 @@ public class RegisterFrm extends JFrame {
 		String password = String.valueOf(this.passwordTxt.getPassword());
 		String checkpassword = String.valueOf(this.checkpasswordTxt.getPassword());
 		if (StrUtils.isBlank(username)) {
-			JOptionPane.showMessageDialog(null, "用户名不能为空！", "警告", JOptionPane.INFORMATION_MESSAGE);
+			SwingTips.WARN.propmpt("用户名不能为空！");
 			return;
 		}
 		if (StrUtils.isBlank(password)) {
-			JOptionPane.showMessageDialog(null, "密码不能为空！", "警告", JOptionPane.INFORMATION_MESSAGE);
+			SwingTips.WARN.propmpt("密码不能为空！");
 			return;
 		}
 		if (StrUtils.isBlank(checkpassword) || !checkpassword.equals(password)) {
-			JOptionPane.showMessageDialog(null, "两次密码输入不匹配！", "警告",
-					JOptionPane.INFORMATION_MESSAGE);
+			SwingTips.WARN.propmpt("两次密码输入不匹配！");
 			return;
 		}
 
@@ -206,23 +190,18 @@ public class RegisterFrm extends JFrame {
 		try {
 			User result = userService.add(user);
 			if (!Objects.isNull(result)) {
-				this.resetValue();
-				JOptionPane.showMessageDialog(null, "注册成功", "提示", JOptionPane.INFORMATION_MESSAGE);
+				this.usernameTxt.setText("");
+				this.passwordTxt.setText("");
+				SwingTips.INFO.propmpt("注册成功");
 				return;
 			} else {
-				JOptionPane.showMessageDialog(null, "注册失败！", "提示", JOptionPane.INFORMATION_MESSAGE);
+				SwingTips.INFO.propmpt("注册失败！");
 				return;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "注册异常，请稍后重试！", "提示",
-					JOptionPane.INFORMATION_MESSAGE);
+			SwingTips.ERROR.propmpt("注册异常，请稍后重试！");
 			return;
 		}
-	}
-
-	private void resetValue() {
-		this.usernameTxt.setText("");
-		this.passwordTxt.setText("");
 	}
 }
