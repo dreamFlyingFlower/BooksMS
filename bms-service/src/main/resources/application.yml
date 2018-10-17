@@ -7,7 +7,7 @@ spring:
   #热启动
   devtools:
     restart:
-      enabled: false
+      enabled: true
       #排除热启动的文件
       exclude: static/**,public/**,*.md
 ---

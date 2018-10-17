@@ -77,7 +77,9 @@ public class UserService extends BaseService<User> {
 		if (user == null) {
 			throw new ResultException(TipEnum.TIP_LOGIN.getErrMsg());
 		}
-		user.setUserIcon(Constant.FILE_HTTP + "/" + user.getUserIcon());
+		if(StrUtils.isNotBlank(user.getUserIcon())) {			
+			user.setUserIcon(Constant.FILE_HTTP + "/" + user.getUserIcon());
+		}
 		// 获得角色权限
 		StringBuilder sb = new StringBuilder(
 				"select c.role_id,c.role_name,c.role_state,c.role_level ").append(
