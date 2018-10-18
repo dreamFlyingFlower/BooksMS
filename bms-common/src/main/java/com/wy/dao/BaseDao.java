@@ -6,6 +6,7 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -66,8 +67,9 @@ public abstract class BaseDao<T> {
 	}
 
 	public boolean hasValue(String table, String column, Object value) {
-		Sql sql = Sqls.fetchInt("select count(*) from $table where $key = @value").setVar("table", table)
-				.setVar("key", StrUtils.hump2Snake(column)).setParam("value", value);
+		Sql sql = Sqls.fetchInt("select count(*) from $table where $key = @value")
+				.setVar("table", table).setVar("key", StrUtils.hump2Snake(column))
+				.setParam("value", value);
 		return dao.execute(sql).getInt() == 1;
 	}
 
@@ -152,7 +154,7 @@ public abstract class BaseDao<T> {
 		try {
 			Field field = clazz.getDeclaredField(sortColumn);
 			// 若排序字段未传值,则进行数据库查询
-			if(field.get(t) == null || Integer.parseInt(field.get(t).toString()) <=0) {				
+			if (field.get(t) == null || Integer.parseInt(field.get(t).toString()) <= 0) {
 				int sort = getMaxSort(sortColumn, getEntry().getTableName());
 				field.setAccessible(true);
 				field.set(t, sort);
@@ -222,8 +224,8 @@ public abstract class BaseDao<T> {
 			}
 		}
 		if (StrUtils.isBlank(columnName)) {
-			throw new ResultException(
-					MessageFormat.format("the primary key of {0} is loss", getEntry().getTableName()));
+			throw new ResultException(MessageFormat.format("the primary key of {0} is loss",
+					getEntry().getTableName()));
 		}
 		return dao.update(clazz, getChain(params), Cnd.where(columnName, "=", id));
 	}
@@ -342,7 +344,8 @@ public abstract class BaseDao<T> {
 	}
 
 	public List<Map<String, Object>> getMaps(Sql sql) {
-		return (List<Map<String, Object>>) dao.execute(sql.setCallback(Sqls.callback.maps())).getResult();
+		return (List<Map<String, Object>>) dao.execute(sql.setCallback(Sqls.callback.maps()))
+				.getResult();
 	}
 
 	/**
@@ -368,7 +371,8 @@ public abstract class BaseDao<T> {
 	public Result getListArgs(BaseBean<T> entity) {
 		Field[] fields = getClass().getDeclaredFields();
 		if (fields.length == 0) {
-			throw new ResultException(MessageFormat.format("entity {0} don't have columns", clazz.getName()));
+			throw new ResultException(
+					MessageFormat.format("entity {0} don't have columns", clazz.getName()));
 		}
 		SimpleCriteria cri = Cnd.cri();
 		for (Field field : fields) {
@@ -382,7 +386,9 @@ public abstract class BaseDao<T> {
 					continue;
 				}
 				cri.where().andEquals(field.getName(), value);
-			} catch (IllegalArgumentException | IllegalAccessException e) {
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
 				e.printStackTrace();
 			}
 		}
@@ -401,26 +407,42 @@ public abstract class BaseDao<T> {
 	 * @param page 过滤参数
 	 */
 	public Result getPages(BasePage page) {
-		Result result = new Result();
+		int total = 0;
 		SimpleCriteria criteria = Cnd.cri();
 		page.addCnds(dao, criteria.where());
 		page.addGroup(criteria.getGroupBy());
 		if (page.hasPage()) {
 			Sql countSql = Sqls.fetchInt("select count(*) from $table $condition")
 					.setVar("table", page.addTables()).setCondition(criteria);
-			result.setTotal(dao.execute(countSql).getInt(0));
-			if (result.getTotal() <= 0) {
-				return result;
+			total = dao.execute(countSql).getInt(0);
+			if (total <= 0) {
+				return Result.result(null,page.getPageIndex(),page.getPageSize(),0);
 			}
 		}
 		page.addOrder(criteria.getOrderBy());
 		Sql dataSql = Sqls.create("select $columns from $table $condition")
-				.setVar("columns", page.addColumns()).setVar("table", page.addTables())
-				.setCondition(criteria);
+				.setVar("columns",
+						StrUtils.isNotBlank(page.addColumns()) ? handleColumns(page.addColumns())
+								: page.addSpecialColumns())
+				.setVar("table", page.addTables()).setCondition(criteria);
 		if (criteria.getPager() != null) {
 			dataSql.setPager(criteria.getPager());
 		}
-		result.setData(getMaps(dataSql));
-		return result;
+		return Result.result(getMaps(dataSql), page.getPageIndex(), page.getPageSize(), total);
+	}
+
+	/**
+	 * 对驼峰字段进行处理,变成下划线 驼峰别名
+	 * @param columns 字段集合
+	 * @return 字段字符串
+	 */
+	private String handleColumns(String columns) {
+		String[] src = columns.split(",");
+		List<String> des = new ArrayList<>();
+		for (String column : src) {
+			des.add(MessageFormat.format("{0} {1}", StrUtils.hump2Snake(column),
+					column.contains(".") ? column.substring(column.indexOf(".") + 1) : column));
+		}
+		return String.join(",", des);
 	}
 }

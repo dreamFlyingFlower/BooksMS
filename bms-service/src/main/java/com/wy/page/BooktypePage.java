@@ -19,12 +19,17 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BooktypePage extends BasePage {
-	
+
 	private static final long serialVersionUID = 1L;
 	private String booktypeName;
 
 	@Override
 	public String addColumns() {
+		return null;
+	}
+
+	@Override
+	public String addSpecialColumns() {
 		return " * ";
 	}
 
@@ -35,7 +40,7 @@ public class BooktypePage extends BasePage {
 
 	@Override
 	public void addCnds(Dao dao, SqlExpressionGroup where) {
-		if(Strings.isNotBlank(booktypeName)) {
+		if (Strings.isNotBlank(booktypeName)) {
 			where.andLike(" booktype_name ", booktypeName);
 		}
 	}
@@ -43,7 +48,7 @@ public class BooktypePage extends BasePage {
 	@Override
 	public void addGroup(GroupBy group) {
 	}
-	
+
 	@Override
 	public void addOrder(OrderBy order) {
 		order.asc(" booktype_id ");

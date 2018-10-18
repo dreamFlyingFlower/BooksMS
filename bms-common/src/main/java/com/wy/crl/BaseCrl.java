@@ -28,16 +28,18 @@ public abstract class BaseCrl<T> {
 	public Result save(@RequestBody T t) {
 		if (t instanceof BaseBean) {
 			BaseBean<T> bean = (BaseBean<T>) t;
-			// 参数校验
-			Map<String,String> checkAdd = bean.checkAdd(t);
-			if(MapUtils.isNotBlank(checkAdd)) {
-				if (StrUtils.isNotBlank(checkAdd.get("checkErr"))) {
-					return Result.resultErr(checkAdd.get("checkErr"));
-				}
-				// 是否排序
-				if (StrUtils.isNotBlank(checkAdd.get("sort"))) {
-					// 判断是否有自定义排序字段
-					return Result.resultOk(getService().addSort(t, checkAdd.get("sort")));
+			if(bean.validAdd()) {				
+				// 参数校验
+				Map<String,String> checkAdd = bean.validAdd(t);
+				if(MapUtils.isNotBlank(checkAdd)) {
+					if (StrUtils.isNotBlank(checkAdd.get("checkErr"))) {
+						return Result.resultErr(checkAdd.get("checkErr"));
+					}
+					// 是否排序
+					if (StrUtils.isNotBlank(checkAdd.get("sort"))) {
+						// 判断是否有自定义排序字段
+						return Result.resultOk(getService().addSort(t, checkAdd.get("sort")));
+					}
 				}
 			}
 		}
@@ -98,9 +100,11 @@ public abstract class BaseCrl<T> {
 	public Result modify(@RequestBody T t) {
 		if (t instanceof BaseBean) {
 			BaseBean<T> bean = (BaseBean<T>) t;
-			String error = bean.checkUpdate(t);
-			if (StrUtils.isNotBlank(error)) {
-				return Result.resultErr(error);
+			if(bean.validUpdate()) {				
+				String error = bean.validUpdate(t);
+				if (StrUtils.isNotBlank(error)) {
+					return Result.resultErr(error);
+				}
 			}
 		}
 		return Result.result(getService().update(t));

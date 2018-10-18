@@ -21,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserPage extends BasePage {
-	
+
 	private static final long serialVersionUID = 1L;
 	private String username;
 	private String realname;
@@ -35,43 +35,50 @@ public class UserPage extends BasePage {
 
 	@Override
 	public String addColumns() {
-		return new StringBuilder(" a.userId,a.userName,a.realName,a.birthday,a.age,a.sex,a.address,a.email,a.tel,a.userType,")
-				.append("c.roleName ").toString();
+		return new StringBuilder(
+				" a.userId,a.username,a.realname,a.birthday,a.age,a.sex,a.address,a.email,a.tel,")
+						.append("c.roleName ").toString();
+	}
+
+	@Override
+	public String addSpecialColumns() {
+		return null;
 	}
 
 	@Override
 	public String addTables() {
-		return new StringBuilder(" ti_user a inner join tr_user_role b on a.userId = b.userId ")
-				.append(" inner join ti_role c on c.roleId = b.roleId ").toString();
+		return new StringBuilder(" ti_user a left join tr_user_role b on a.user_id = b.user_id ")
+				.append(" left join ti_role c on c.role_id = b.role_id ").toString();
 	}
 
 	@Override
 	public void addCnds(Dao dao, SqlExpressionGroup where) {
-		if(Strings.isNotBlank(username)) {
+		where.andNotEquals("IFNULL(c.role_state,'-1')", 0);
+		if (Strings.isNotBlank(username)) {
 			where.andLikeL(" a.username ", username);
 		}
-		if(Strings.isNotBlank(realname)) {
+		if (Strings.isNotBlank(realname)) {
 			where.andLike(" a.realname ", realname);
 		}
-		if(Strings.isNotBlank(address)) {
+		if (Strings.isNotBlank(address)) {
 			where.andLike(" a.address ", address);
 		}
-		if(Strings.isNotBlank(beginTime)) {
-			where.and(" a.birthday ", ">=",beginTime);
+		if (Strings.isNotBlank(beginTime)) {
+			where.and(" a.birthday ", ">=", beginTime);
 		}
-		if(Strings.isNotBlank(endTime)) {
-			where.and(" a.birthday ", "<=",endTime);
+		if (Strings.isNotBlank(endTime)) {
+			where.and(" a.birthday ", "<=", endTime);
 		}
-		if(Objects.nonNull(userType)) {
+		if (Objects.nonNull(userType)) {
 			where.andEquals("a.userType", userType);
 		}
-		if(Objects.nonNull(roleId)) {
+		if (Objects.nonNull(roleId)) {
 			where.andEquals("c.roleId", roleId);
 		}
-		if(Objects.nonNull(state)) {
+		if (Objects.nonNull(state)) {
 			where.andEquals(" a.state", state);
 		}
-		if(Strings.isNotBlank(roleName)) {
+		if (Strings.isNotBlank(roleName)) {
 			where.andLike(" c.roleName ", roleName);
 		}
 	}
@@ -82,6 +89,6 @@ public class UserPage extends BasePage {
 
 	@Override
 	public void addOrder(OrderBy order) {
-		order.asc(" a.userId");
+		order.asc(" a.user_id");
 	}
 }

@@ -36,11 +36,15 @@ public class BaseBean<T> implements Serializable {
 	private int pageIndex = -1;
 	@JSONField(serialize = false)
 	private int pageSize;
+	
+	public boolean validAdd() {
+		return true;
+	}
 
 	/**
 	 * 通用controller使用该方法检查参数必传参数,检查是否需要排序
 	 */
-	public Map<String,String> checkAdd(T t) {
+	public Map<String,String> validAdd(T t) {
 		Class<? extends Object> clazz = t.getClass();
 		Field[] fields = clazz.getDeclaredFields();
 		Map<String,String> result = new HashMap<>();
@@ -67,11 +71,15 @@ public class BaseBean<T> implements Serializable {
 		}
 		return result;
 	}
+	
+	public boolean validUpdate() {
+		return true;
+	}
 
 	/**
 	 * 通用controller使用该方法检查全参修改必传参数
 	 */
-	public String checkUpdate(T t) {
+	public String validUpdate(T t) {
 		Class<? extends Object> clazz = t.getClass();
 		Field[] fields = clazz.getDeclaredFields();
 		for (Field field : fields) {

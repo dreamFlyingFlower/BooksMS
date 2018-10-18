@@ -7,6 +7,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Result implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -16,54 +21,6 @@ public class Result implements Serializable {
 	private int pageIndex;
 	private int pageSize;
 	private int total;
-
-	public int getCode() {
-		return code;
-	}
-
-	public void setCode(int code) {
-		this.code = code;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-	public Object getData() {
-		return data;
-	}
-
-	public void setData(Object data) {
-		this.data = data;
-	}
-
-	public int getPageIndex() {
-		return pageIndex;
-	}
-
-	public void setPageIndex(int pageIndex) {
-		this.pageIndex = pageIndex;
-	}
-
-	public int getPageSize() {
-		return pageSize;
-	}
-
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
-	}
-
-	public int getTotal() {
-		return total;
-	}
-
-	public void setTotal(int total) {
-		this.total = total;
-	}
 
 	public static Result resultOk() {
 		return resultOk(null);
