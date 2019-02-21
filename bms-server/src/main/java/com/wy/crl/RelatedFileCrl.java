@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.wy.entity.RelatedFile;
+import com.wy.result.Result;
 import com.wy.service.RelatedFileService;
 import com.wy.utils.FilesUtils;
-import com.wy.utils.Result;
 
 @RestController
 @RequestMapping("relatedFile")
@@ -37,7 +37,7 @@ public class RelatedFileCrl {
 	 */
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	public Result upload(@RequestParam CommonsMultipartFile file) {
-		return Result.resultOk(fileService.uploadFile(file));
+		return Result.ok(fileService.uploadFile(file));
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class RelatedFileCrl {
 	 */
 	@RequestMapping(value = "/uploadFiles", method = RequestMethod.POST)
 	public Result uploadFiles(@RequestParam CommonsMultipartFile[] file) {
-		return Result.resultOk(fileService.uploadFiles(file));
+		return Result.ok(fileService.uploadFiles(file));
 	}
 
 	/**

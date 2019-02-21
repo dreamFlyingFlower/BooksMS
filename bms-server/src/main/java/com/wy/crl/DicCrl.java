@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wy.entity.Dic;
+import com.wy.result.Result;
 import com.wy.service.DicService;
-import com.wy.utils.Result;
 
 @RestController
 @RequestMapping("dic")
@@ -37,7 +37,7 @@ public class DicCrl extends BaseCrl<Dic> {
 	 */
 	@GetMapping("/getChildren/{dicCode}")
 	public Result getChildren(@PathVariable String dicCode) {
-		return Result.resultOk(dicService.getChildren(dicCode));
+		return Result.ok(dicService.getChildren(dicCode));
 	}
 
 	/**
@@ -47,6 +47,6 @@ public class DicCrl extends BaseCrl<Dic> {
 	 */
 	@GetMapping("/getTrees/{dicId}")
 	public Result getTrees(@PathVariable Integer dicId) {
-		return Result.resultOk(dicService.getTrees(dicId));
+		return Result.ok(dicService.getTrees(dicId));
 	}
 }

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wy.entity.Role;
+import com.wy.result.Result;
 import com.wy.service.RoleService;
-import com.wy.utils.Result;
 
 @RestController
 @RequestMapping("role")
@@ -32,7 +32,7 @@ public class RoleCrl extends BaseCrl<Role> {
 	@PostMapping("/saveMenus/{roleId}")
 	public Result saveMenus(@PathVariable int roleId, @RequestBody List<Map<String, Object>> datas) {
 		roleService.saveMenus(roleId, datas);
-		return Result.resultOk();
+		return Result.ok();
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class RoleCrl extends BaseCrl<Role> {
 	 */
 	@GetMapping("/getRoleMenu/{roleId}")
 	public Result getRoleMenu(@PathVariable Integer roleId) {
-		return Result.resultOk(roleService.getRoleMenu(roleId));
+		return Result.ok(roleService.getRoleMenu(roleId));
 	}
 
 	/**
@@ -56,6 +56,6 @@ public class RoleCrl extends BaseCrl<Role> {
 	 */
 	@PostMapping("/getRoleMenus/{roleId}")
 	public Result getRoleMenus(@PathVariable Integer roleId) {
-		return Result.resultOk(roleService.getRoleMenus(roleId));
+		return Result.ok(roleService.getRoleMenus(roleId));
 	}
 }

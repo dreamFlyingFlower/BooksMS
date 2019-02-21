@@ -35,9 +35,9 @@ import javax.swing.table.DefaultTableModel;
 import com.wy.common.SpringContext;
 import com.wy.entity.Book;
 import com.wy.entity.Booktype;
+import com.wy.result.Result;
 import com.wy.service.BookService;
 import com.wy.service.BooktypeService;
-import com.wy.utils.Result;
 import com.wy.utils.StrUtils;
 
 public class BookFrm extends JInternalFrame {

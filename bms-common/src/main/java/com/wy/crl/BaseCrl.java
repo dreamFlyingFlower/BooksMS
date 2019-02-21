@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.wy.entity.BaseBean;
+import com.wy.result.Result;
 import com.wy.service.BaseService;
 import com.wy.utils.MapUtils;
-import com.wy.utils.Result;
 import com.wy.utils.StrUtils;
 
 /**
@@ -33,12 +33,12 @@ public abstract class BaseCrl<T> {
 				Map<String,String> checkAdd = bean.validAdd(t);
 				if(MapUtils.isNotBlank(checkAdd)) {
 					if (StrUtils.isNotBlank(checkAdd.get("checkErr"))) {
-						return Result.resultErr(checkAdd.get("checkErr"));
+						return Result.error(checkAdd.get("checkErr"));
 					}
 					// 是否排序
 					if (StrUtils.isNotBlank(checkAdd.get("sort"))) {
 						// 判断是否有自定义排序字段
-						return Result.resultOk(getService().addSort(t, checkAdd.get("sort")));
+						return Result.ok(getService().addSort(t, checkAdd.get("sort")));
 					}
 				}
 			}
@@ -103,7 +103,7 @@ public abstract class BaseCrl<T> {
 			if(bean.validUpdate()) {				
 				String error = bean.validUpdate(t);
 				if (StrUtils.isNotBlank(error)) {
-					return Result.resultErr(error);
+					return Result.error(error);
 				}
 			}
 		}

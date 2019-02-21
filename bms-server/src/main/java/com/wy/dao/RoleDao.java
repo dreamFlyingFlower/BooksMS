@@ -14,9 +14,9 @@ import com.wy.common.ResultException;
 import com.wy.entity.Role;
 import com.wy.entity.RoleButton;
 import com.wy.entity.RoleMenu;
+import com.wy.result.Result;
 import com.wy.utils.ListUtils;
 import com.wy.utils.ObjUtils;
-import com.wy.utils.Result;
 
 @Repository
 public class RoleDao extends BaseDao<Role> {
@@ -26,7 +26,7 @@ public class RoleDao extends BaseDao<Role> {
 	 */
 	public Result getRoles(Role bean) {
 		if (bean.hasPage()) {
-			return Result.result(
+			return Result.page(
 					dao.query(Role.class, Cnd.where(Exps.eq("role_state", 1)),
 							new Pager(bean.getPageIndex(), bean.getPageSize())),
 					bean.getPageIndex(), bean.getPageSize(), dao.count(Role.class));

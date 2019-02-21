@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.wy.dao.BaseDao;
 import com.wy.entity.BaseBean;
 import com.wy.page.BasePage;
-import com.wy.utils.Result;
+import com.wy.result.Result;
 
 /**
  * service公共类

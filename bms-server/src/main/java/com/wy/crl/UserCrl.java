@@ -11,8 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.wy.entity.User;
 import com.wy.page.UserPage;
+import com.wy.result.Result;
 import com.wy.service.UserService;
-import com.wy.utils.Result;
 
 /**
  * user控制层
@@ -37,7 +37,7 @@ public class UserCrl extends BaseCrl<User> {
 	 */
 	@GetMapping("/hasUser")
 	public Result hasAccount(String account, Integer type) {
-		return Result.resultOk(userService.hasAccount(account, type));
+		return Result.ok(userService.hasAccount(account, type));
 	}
 
 	/**
@@ -47,7 +47,7 @@ public class UserCrl extends BaseCrl<User> {
 	 */
 	@GetMapping("/login")
 	public Result login(String account, String password) {
-		return Result.resultOk(userService.login(account, password));
+		return Result.ok(userService.login(account, password));
 	}
 
 	/**

@@ -42,21 +42,11 @@
 			<version>${druid-spring-boot-starter.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>fastjson</artifactId>
-			<version>${fastjson.version}</version>
+			<groupId>com.github.mygodness100</groupId>
+			<artifactId>SimpleUtils</artifactId>
+			<version>1.0.4</version>
 		</dependency>
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>23.0</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>j2objc-annotations</artifactId>
-					<groupId>com.google.j2objc</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>

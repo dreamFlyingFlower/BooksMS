@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.wy.dao.RoleDao;
 import com.wy.entity.Role;
-import com.wy.utils.Result;
+import com.wy.result.Result;
 
 @Service("roleService")
 public class RoleService extends BaseService<Role> {

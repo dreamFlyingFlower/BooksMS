@@ -27,8 +27,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wy.common.ResultException;
 import com.wy.entity.BaseBean;
 import com.wy.page.BasePage;
+import com.wy.result.Result;
 import com.wy.utils.MapUtils;
-import com.wy.utils.Result;
 import com.wy.utils.StrUtils;
 
 /**
@@ -355,7 +355,7 @@ public abstract class BaseDao<T> {
 	 */
 	public Result getList(BaseBean<T> entity) {
 		if (entity.hasPage()) {
-			return Result.result(
+			return Result.page(
 					dao.query(clazz, null, new Pager(entity.getPageIndex(), entity.getPageSize())),
 					entity.getPageIndex(), entity.getPageSize(), dao.count(clazz));
 		} else {
@@ -393,7 +393,7 @@ public abstract class BaseDao<T> {
 			}
 		}
 		if (entity.hasPage()) {
-			return Result.result(
+			return Result.page(
 					dao.query(clazz, cri, new Pager(entity.getPageIndex(), entity.getPageSize())),
 					entity.getPageIndex(), entity.getPageSize(), dao.count(clazz, cri));
 		} else {
@@ -416,7 +416,7 @@ public abstract class BaseDao<T> {
 					.setVar("table", page.addTables()).setCondition(criteria);
 			total = dao.execute(countSql).getInt(0);
 			if (total <= 0) {
-				return Result.result(null,page.getPageIndex(),page.getPageSize(),0);
+				return Result.page(null,page.getPageIndex(),page.getPageSize(),0);
 			}
 		}
 		page.addOrder(criteria.getOrderBy());
@@ -428,7 +428,7 @@ public abstract class BaseDao<T> {
 		if (criteria.getPager() != null) {
 			dataSql.setPager(criteria.getPager());
 		}
-		return Result.result(getMaps(dataSql), page.getPageIndex(), page.getPageSize(), total);
+		return Result.page(getMaps(dataSql), page.getPageIndex(), page.getPageSize(), total);
 	}
 
 	/**
