@@ -412,7 +412,7 @@ public abstract class BaseDao<T> {
 		page.addCnds(dao, criteria.where());
 		page.addGroup(criteria.getGroupBy());
 		if (page.hasPage()) {
-			Sql countSql = Sqls.fetchInt("select count(*) from $table $condition")
+			Sql countSql = Sqls.fetchInt("select count(*) from (select count(*) from $table $condition) des")
 					.setVar("table", page.addTables()).setCondition(criteria);
 			total = dao.execute(countSql).getInt(0);
 			if (total <= 0) {
