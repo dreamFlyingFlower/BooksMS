@@ -412,11 +412,15 @@ public abstract class BaseDao<T> {
 		page.addCnds(dao, criteria.where());
 		page.addGroup(criteria.getGroupBy());
 		if (page.hasPage()) {
-			Sql countSql = Sqls.fetchInt("select count(*) from (select count(*) from $table $condition) des")
-					.setVar("table", page.addTables()).setCondition(criteria);
+			Sql dataSql = Sqls.create("select $columns from $table $condition")
+					.setVar("columns", page.addColumns()).setVar("table", page.addTables())
+					.setCondition(criteria);
+			Sql countSql = Sqls.fetchInt("select count(*) from ($dataSql) a ")
+					.setVar("dataSql", dataSql.toString()).setCondition(criteria);
+			criteria.setPager(new Pager(page.getPageIndex(), page.getPageSize()));
 			total = dao.execute(countSql).getInt(0);
 			if (total <= 0) {
-				return Result.page(null,page.getPageIndex(),page.getPageSize(),0);
+				return Result.page(null, page.getPageIndex(), page.getPageSize(), 0);
 			}
 		}
 		page.addOrder(criteria.getOrderBy());
