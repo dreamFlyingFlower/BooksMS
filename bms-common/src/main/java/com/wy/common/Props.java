@@ -7,7 +7,7 @@ import java.util.Properties;
 /**
  * @author paradiseWy 2018年10月12日
  */
-public class Constant {
+public class Props {
 
 	public static boolean isTodayFolder = false;// 非配置文件属性,判断是否已经新建了当天的文件存放文件夹
 	public static final String SUPER_ADMIN;// 超级管理员账号
@@ -20,7 +20,7 @@ public class Constant {
 
 	static {
 		Properties prop = new Properties();
-		try (InputStream is = Constant.class.getClassLoader().getResourceAsStream("constant.properties")) {
+		try (InputStream is = Props.class.getClassLoader().getResourceAsStream("constant.properties")) {
 			prop.load(is);
 		} catch (IOException e) {
 			e.printStackTrace();
