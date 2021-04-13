@@ -1,0 +1,70 @@
+#生产环境和开发环境的不同配置写这里      
+---
+server:
+  port: 5558
+spring:
+  profiles: development
+  #热启动
+  devtools:
+    restart:
+      #排除热启动的文件
+      exclude: static/**,public/**,*.md
+---
+server:
+  port: 5557
+spring:
+  profiles: production
+---
+
+spring:
+  application: 
+    name: SimpleOA
+  #第一个参数是开发环境配置文件,其他的多个配置文件必须以application-开头,只用写后缀即可,逗号隔开
+  profiles:
+    active: development,common,user,cas
+  transaction:
+    rollback-on-commit-failure: true
+  mvc:
+    servlet:
+      load-on-startup: 1
+  datasource: 
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/simpleoa?autoReconnect=true&amp;useUnicode=true
+    username: root
+    password: 52LDforever
+    druid:
+      min-idle: 5
+      max-wait: 10000
+      initial-size: 5
+      validation-query: SELECT 1
+      test-while-idle: true
+      time-between-eviction-runs-millis: 27800
+      filters: slf4j
+      filter: 
+        stat:
+          enabled: true
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: true
+        wall:
+          enabled: true
+          config:
+            alter-table-allow: false
+            truncate-allow: false
+            drop-table-allow: false
+            #是否允许非以上基本语句的其他语句,默认关闭
+            none-base-statement-allow: false
+            #检查update语句是否无where条件
+            update-where-none-check: true
+            # select into outfile是否允许,这是mysql注入攻击常见手段,默认是禁止的
+            select-into-outfile-allow: false
+            #是否允许调用connection.getmetdata方法,这个方法会暴露数据库的表信息
+            metadata-allow: true
+            #允许多条sql语句同时执行
+            multi-statement-allow: true
+          #对被认为是攻击的sql进行log.error输出
+          log-violation: true
+          #对被认为是攻击的sql抛出异常
+          throw-exception: true
+          
